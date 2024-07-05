@@ -99,4 +99,5 @@ let
 in
   composeManyExtensions [
     (import ./overlays/require-cross-compile.nix)
+    (import ./overlays/test-timeouts.nix)
   ]
