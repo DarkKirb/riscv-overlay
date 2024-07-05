@@ -13,7 +13,12 @@
         overlays = [self.overlays.default];
       };
     in {
-      inherit (pkgs) pandoc pixman;
+      inherit
+        (pkgs)
+        pandoc
+        pixman
+        rclone
+        ;
     };
   };
 }
