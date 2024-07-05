@@ -98,7 +98,7 @@ let
     foldr (x: y: composeExtensions x y) (final: prev: {});
 in
   composeManyExtensions [
-    (import ./overlays/require-cross-compile.nix)
+    (import ./overlays/ghc.nix)
     (import ./overlays/require-native-build.nix)
     (import ./overlays/test-timeouts.nix)
   ]
