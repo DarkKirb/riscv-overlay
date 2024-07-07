@@ -17,6 +17,7 @@
         (pkgs)
         boehmgc
         ghc
+        libuv
         pixman
         rclone
         ;
