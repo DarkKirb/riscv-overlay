@@ -15,6 +15,7 @@
     in {
       inherit
         (pkgs)
+        boehmgc
         pandoc
         pixman
         rclone
