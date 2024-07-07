@@ -4,7 +4,7 @@ in {
   inherit
     (pkgs)
     boehmgc
-    pandoc
+    ghc
     pixman
     rclone
     ;
