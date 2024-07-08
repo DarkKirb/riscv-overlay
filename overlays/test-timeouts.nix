@@ -7,4 +7,12 @@ self: super: {
   pixman = super.pixman.overrideAttrs (_: {
     doCheck = false;
   });
+  llvmPackages_15 =
+    super.llvmPackages_15
+    // {
+      llvm = super.llvmPackages_15.llvm.overrideAttrs {
+        doCheck = false;
+      };
+    };
+  llvm_15 = self.llvmPackages_15.llvm;
 }

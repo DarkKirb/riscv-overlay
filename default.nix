@@ -6,6 +6,7 @@ in {
     boehmgc
     ghc
     libuv
+    llvm_15
     pixman
     rclone
     ;
