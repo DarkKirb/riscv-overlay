@@ -93,7 +93,12 @@ in {
       };
 
       packages = {
-        inherit (super.haskell.packages) ghc965 ghc96;
+        ghc965 = super.haskell.packages.ghc965.override {
+          overrides = import ./haskell.nix self super;
+        };
+        ghc96 = super.haskell.packages.ghc965.override {
+          overrides = import ./haskell.nix self super;
+        };
 
         ghc948Boot = mkBootPackages {
           base = super.haskell.packages.ghc948;

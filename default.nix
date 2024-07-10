@@ -4,10 +4,25 @@ in {
   inherit
     (pkgs)
     boehmgc
-    ghc
     libuv
     llvm_15
     pixman
     rclone
     ;
+  haskell = {
+    compiler = {
+      inherit (pkgs.haskell.compiler) ghc948Boot ghc965 ghc96;
+    };
+    packages = let
+      mkHaskellPackages = version: {
+        inherit (pkgs.haskell.packages.${version}) happy;
+      };
+    in (builtins.listToAttrs (map (version: {
+        name = version;
+        value = mkHaskellPackages version;
+      }) [
+        "ghc965"
+        "ghc96"
+      ]));
+  };
 }
