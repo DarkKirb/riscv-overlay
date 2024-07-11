@@ -8,7 +8,7 @@ in {
     packageOverrides = overlay;
   };
   python3Packages = self.python3.pkgs;
-  python312 = super.python.override {
+  python312 = super.python312.override {
     packageOverrides = overlay;
   };
   python312Packages = self.python312.pkgs;
