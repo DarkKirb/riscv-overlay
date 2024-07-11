@@ -10,6 +10,7 @@ self: super: let
 in
   builtins.listToAttrs (mkNativeBuilds [
     "boehmgc"
+    "libseccomp"
     "libuv"
     "rclone"
   ])

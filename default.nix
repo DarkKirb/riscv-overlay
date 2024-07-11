@@ -5,6 +5,7 @@ in {
     (pkgs)
     boehmgc
     libuv
+    libseccomp
     llvm_15
     pixman
     rclone
