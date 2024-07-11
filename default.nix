@@ -25,4 +25,10 @@ in {
         "ghc96"
       ]));
   };
+  python3Packages = {
+    inherit (pkgs.python3Packages) hypothesis;
+  };
+  python312Packages = {
+    inherit (pkgs.python312Packages) hypothesis;
+  };
 }
