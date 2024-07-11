@@ -7,6 +7,7 @@ in {
     libuv
     libseccomp
     llvm_15
+    openldap
     pixman
     rclone
     ;

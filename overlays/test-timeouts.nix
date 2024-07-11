@@ -15,4 +15,7 @@ self: super: {
       };
     };
   llvm_15 = self.llvmPackages_15.llvm;
+  openldap = super.openldap.overrideAttrs {
+    doCheck = false;
+  };
 }
