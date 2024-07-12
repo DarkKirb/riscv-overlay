@@ -7,9 +7,12 @@ in {
     libuv
     libseccomp
     llvm_15
+    llvm_17
+    llvm_18
     openldap
     pixman
     rclone
+    universal-ctags
     ;
   haskell = {
     compiler = {
