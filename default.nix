@@ -4,6 +4,7 @@ in {
   inherit
     (pkgs)
     boehmgc
+    elfutils
     libuv
     libseccomp
     llvm
