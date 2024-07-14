@@ -13,6 +13,7 @@ in {
     openldap
     pixman
     rclone
+    systemd
     universal-ctags
     ;
   haskell = {
