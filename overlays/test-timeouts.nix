@@ -30,7 +30,9 @@ in
         };
         llvm = libllvm;
       };
+    llvmPackages = self.llvmPackages_17;
     llvm_17 = self.llvmPackages_17.llvm;
+    llvm = self.llvm_17;
     llvmPackages_18 =
       super.llvmPackages_18
       // rec {

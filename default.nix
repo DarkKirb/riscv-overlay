@@ -6,6 +6,7 @@ in {
     boehmgc
     libuv
     libseccomp
+    llvm
     llvm_15
     llvm_17
     llvm_18
