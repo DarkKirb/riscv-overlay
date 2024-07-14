@@ -22,18 +22,24 @@ in
     llvm_15 = self.llvmPackages_15.llvm;
     llvmPackages_17 =
       super.llvmPackages_17
-      // {
-        llvm = super.llvmPackages_17.llvm.overrideAttrs {
+      // rec {
+        libllvm = (super.llvmPackages_17.libllvm.overrideAttrs {
           doCheck = false;
+        }).override {
+          enableSharedLibraries = true;
         };
+        llvm = libllvm;
       };
     llvm_17 = self.llvmPackages_17.llvm;
     llvmPackages_18 =
       super.llvmPackages_18
-      // {
-        llvm = super.llvmPackages_18.llvm.overrideAttrs {
+      // rec {
+        libllvm = (super.llvmPackages_18.libllvm.overrideAttrs {
           doCheck = false;
+        }).override {
+          enableSharedLibraries = true;
         };
+        llvm = libllvm;
       };
     llvm_18 = self.llvmPackages_18.llvm;
     xorg = super.xorg.overrideScope (_: _: {
