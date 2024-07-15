@@ -17,6 +17,7 @@ in {
     rclone
     systemd
     universal-ctags
+    wolfssl
     ;
   haskell = {
     compiler = {

@@ -53,4 +53,5 @@ in
     "openldap"
     "pixman"
     "universal-ctags"
+    "wolfssl"
   ])
