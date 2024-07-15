@@ -49,6 +49,7 @@ in
     });
   }
   // builtins.listToAttrs (mkNoTests [
+    "fish"
     "openldap"
     "pixman"
     "universal-ctags"

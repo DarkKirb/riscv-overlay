@@ -5,6 +5,7 @@ in {
     (pkgs)
     boehmgc
     elfutils
+    fish
     libuv
     libseccomp
     llvm
