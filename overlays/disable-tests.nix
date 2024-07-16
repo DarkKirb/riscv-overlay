@@ -55,6 +55,7 @@ in
   // builtins.listToAttrs (mkNoTests [
     "fish"
     "mdbook"
+    "nix"
     "openldap"
     "pixman"
     "ripgrep"

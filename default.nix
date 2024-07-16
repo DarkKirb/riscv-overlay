@@ -13,6 +13,7 @@ in {
     llvm_17
     llvm_18
     mdbook
+    nix
     openldap
     pixman
     rclone
