@@ -12,9 +12,11 @@ in {
     llvm_15
     llvm_17
     llvm_18
+    mdbook
     openldap
     pixman
     rclone
+    ripgrep
     systemd
     universal-ctags
     wolfssl

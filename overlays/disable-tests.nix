@@ -50,8 +50,10 @@ in
   }
   // builtins.listToAttrs (mkNoTests [
     "fish"
+    "mdbook"
     "openldap"
     "pixman"
+    "ripgrep"
     "universal-ctags"
     "wolfssl"
   ])
