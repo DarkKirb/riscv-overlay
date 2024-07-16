@@ -23,11 +23,13 @@ in
     llvmPackages_17 =
       super.llvmPackages_17
       // rec {
-        libllvm = (super.llvmPackages_17.libllvm.overrideAttrs {
-          doCheck = false;
-        }).override {
-          enableSharedLibraries = true;
-        };
+        libllvm =
+          (super.llvmPackages_17.libllvm.overrideAttrs {
+            doCheck = false;
+          })
+          .override {
+            enableSharedLibraries = true;
+          };
         llvm = libllvm;
       };
     llvmPackages = self.llvmPackages_17;
@@ -36,11 +38,13 @@ in
     llvmPackages_18 =
       super.llvmPackages_18
       // rec {
-        libllvm = (super.llvmPackages_18.libllvm.overrideAttrs {
-          doCheck = false;
-        }).override {
-          enableSharedLibraries = true;
-        };
+        libllvm =
+          (super.llvmPackages_18.libllvm.overrideAttrs {
+            doCheck = false;
+          })
+          .override {
+            enableSharedLibraries = true;
+          };
         llvm = libllvm;
       };
     llvm_18 = self.llvmPackages_18.llvm;
