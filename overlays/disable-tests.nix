@@ -57,6 +57,7 @@ in
     "mdbook"
     "nix"
     "libopus"
+    "openexr"
     "openldap"
     "pixman"
     "ripgrep"

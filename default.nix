@@ -16,6 +16,7 @@ in {
     llvm_18
     mdbook
     nix
+    openexr
     openldap
     pixman
     rclone
