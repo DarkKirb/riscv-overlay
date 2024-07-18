@@ -6,6 +6,7 @@ in {
     boehmgc
     elfutils
     fish
+    libopus
     libuv
     libseccomp
     llvm

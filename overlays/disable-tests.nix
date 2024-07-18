@@ -56,6 +56,7 @@ in
     "fish"
     "mdbook"
     "nix"
+    "libopus"
     "openldap"
     "pixman"
     "ripgrep"
