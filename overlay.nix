@@ -3,6 +3,7 @@ with (import ./lib.nix);
     (import ./overlays/disable-tests.nix)
     (import ./overlays/ghc.nix)
     (import ./overlays/misc.nix)
+    (import ./overlays/patches)
     (import ./overlays/python.nix)
     (import ./overlays/require-native-build.nix)
   ]

@@ -6,6 +6,7 @@ in {
     boehmgc
     elfutils
     fish
+    gn
     libopus
     libuv
     libseccomp
@@ -41,7 +42,7 @@ in {
         ]))
       // {
         ghc948Boot = {
-          inherit (pkgs.haskell.packages.ghc948Boot) alex data-array-bite doctest extra hashable optparse-applicative QuickCheck temporary unordered-containers vector;
+          inherit (pkgs.haskell.packages.ghc948Boot) alex data-array-byte doctest extra hashable optparse-applicative QuickCheck temporary unordered-containers vector;
         };
       };
   };
