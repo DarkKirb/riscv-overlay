@@ -48,9 +48,9 @@ in {
       };
   };
   python3Packages = {
-    inherit (pkgs.python3Packages) hypothesis;
+    inherit (pkgs.python3Packages) hypothesis psutil;
   };
   python312Packages = {
-    inherit (pkgs.python312Packages) hypothesis;
+    inherit (pkgs.python312Packages) hypothesis psutil;
   };
 }
