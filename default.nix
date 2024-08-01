@@ -24,6 +24,7 @@ in {
     systemd
     universal-ctags
     wolfssl
+    zeromq
     ;
   haskell = {
     compiler = {

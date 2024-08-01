@@ -14,4 +14,5 @@ in
     "libseccomp"
     "libuv"
     "rclone"
+    "zeromq"
   ])
