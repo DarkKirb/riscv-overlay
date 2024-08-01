@@ -11,8 +11,6 @@ in
   builtins.listToAttrs (mkNativeBuilds [
     "boehmgc"
     "elfutils"
-    "git"
-    "gitMinimal"
     "libseccomp"
     "libuv"
     "rclone"

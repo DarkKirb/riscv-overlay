@@ -54,6 +54,8 @@ in
   }
   // builtins.listToAttrs (mkNoTests [
     "fish"
+    "git"
+    "gitMinimal"
     "mdbook"
     "nix"
     "libopus"
