@@ -6,6 +6,8 @@ in {
     boehmgc
     elfutils
     fish
+    git
+    gitMinimal
     gn
     libopus
     libuv
