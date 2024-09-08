@@ -28,6 +28,9 @@ in {
     wolfssl
     zeromq
     ;
+  nixVersions = {
+    inherit (pkgs.nixVersions) latest;
+  };
   haskell = {
     compiler = {
       inherit (pkgs.haskell.compiler) ghc948Boot ghc965 ghc96;

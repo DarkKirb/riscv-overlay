@@ -51,6 +51,14 @@ in
     xorg = super.xorg.overrideScope (_: _: {
       inherit (self) pixman;
     });
+    nixVersions =
+      super.nixVersions
+      // {
+        latest = super.nixVersions.latest.overrideAttrs {
+          doCheck = false;
+          doInstallCheck = false;
+        };
+      };
   }
   // builtins.listToAttrs (mkNoTests [
     "fish"
