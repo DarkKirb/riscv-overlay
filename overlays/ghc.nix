@@ -69,7 +69,7 @@ in {
     // {
       compiler = {
         ghc948Boot = mkBootCompiler {
-          drv = pkgs_x86_64.ghcRiscvBoot.entries."ghc-9.4.8";
+          drv = pkgs_x86_64.haskell.compiler.native-bignum.ghc948;
           llvmPackages = self.llvmPackages_15;
         };
 
