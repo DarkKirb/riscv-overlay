@@ -42,6 +42,7 @@ self: super: let
     doctest = hsLib.dontCheck super.doctest;
     extra = hsLib.dontCheck super.extra;
     hashable = hsLib.dontCheck super.hashable;
+    happy = hsLib.dontCheck super.happy;
     optparse-applicative = hsLib.dontCheck super.optparse-applicative;
     QuickCheck = hsLib.dontCheck super.QuickCheck;
     temporary = hsLib.dontCheck super.temporary;
