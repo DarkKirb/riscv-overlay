@@ -8,4 +8,8 @@ self: super: pythonSelf: pythonSuper: {
   cbor2 = pythonSuper.cbor2.overrideAttrs {
     doInstallCheck = false;
   };
+  mypy = pythonSuper.mypy.overrideAttrs {
+    MYPY_USE_MYPYC = false;
+    doInstallCheck = false;
+  }
 }

@@ -55,9 +55,9 @@ in {
       };
   };
   python3Packages = {
-    inherit (pkgs.python3Packages) hypothesis psutil cbor2;
+    inherit (pkgs.python3Packages) hypothesis psutil cbor2 mypy;
   };
   python312Packages = {
-    inherit (pkgs.python312Packages) hypothesis psutil cbor2;
+    inherit (pkgs.python312Packages) hypothesis psutil cbor2 mypy;
   };
 }
