@@ -11,5 +11,5 @@ self: super: pythonSelf: pythonSuper: {
   mypy = pythonSuper.mypy.overrideAttrs {
     MYPY_USE_MYPYC = false;
     doInstallCheck = false;
-  }
+  };
 }
