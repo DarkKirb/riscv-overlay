@@ -9,7 +9,7 @@ self: super: pythonSelf: pythonSuper: {
     doInstallCheck = false;
   };
   mypy = pythonSuper.mypy.overrideAttrs {
-    MYPY_USE_MYPYC = false;
+    env = {};
     doInstallCheck = false;
   };
 }
