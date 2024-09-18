@@ -5,4 +5,7 @@ self: super: pythonSelf: pythonSuper: {
   psutil = pythonSuper.psutil.overrideAttrs (super: {
     requiredSystemFeatures = super.requiredSystemFeatures or [] ++ ["native-riscv"];
   });
+  cbor2 = pythonSuper.cbor2.overrideAttrs {
+    doInstallCheck = false;
+  };
 }
