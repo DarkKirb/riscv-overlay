@@ -22,6 +22,7 @@ in {
     openldap
     pixman
     rclone
+    re2
     ripgrep
     systemd
     universal-ctags

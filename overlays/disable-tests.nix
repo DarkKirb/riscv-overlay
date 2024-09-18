@@ -70,6 +70,7 @@ in
     "openexr"
     "openldap"
     "pixman"
+    "re2"
     "ripgrep"
     "universal-ctags"
     "wolfssl"
