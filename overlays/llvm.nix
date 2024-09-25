@@ -38,11 +38,11 @@ self: super: let
             doCheck = false;
           };
       compiler-rt-libc = llvmSuper.compiler-rt-libc.override {
-        inherit (llvmSuper) libllvm;
+        inherit (llvmSelf) libllvm;
       };
       compiler-rt = llvmSelf.compiler-rt-libc;
       libclang = llvmSuper.libclang.override {
-        inherit (llvmSuper) libllvm;
+        inherit (llvmSelf) libllvm;
       };
       clang-unwrapped = llvmSelf.libclang;
       libstdcxxClang = self.wrapCCWith rec {
