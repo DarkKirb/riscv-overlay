@@ -48,7 +48,7 @@ self: super: let
           ./patches/clang/gnu-install-dirs.patch
           ./patches/clang/add-nostdlibinc-flag.patch
           (self.substituteAll {
-            src = ./clang/llvmgold-path.patch;
+            src = ./patches/clang/llvmgold-path.patch;
             libllvmLibdir = "${llvmSelf.libllvm.lib}/lib";
           })
         ];
