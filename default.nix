@@ -60,4 +60,16 @@ in {
   python312Packages = {
     inherit (pkgs.python312Packages) hypothesis psutil cbor2 mypy;
   };
+  llvmPackages_17 = {
+    inherit
+      (pkgs.llvmPackages_17)
+      compiler-rt-libc
+      compiler-rt
+      libclang
+      clang-unwrapped
+      libstdcxxClang
+      clang
+      stdenv
+      ;
+  };
 }
