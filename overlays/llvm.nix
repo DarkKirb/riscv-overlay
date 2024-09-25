@@ -43,6 +43,15 @@ self: super: let
       compiler-rt = llvmSelf.compiler-rt-libc;
       libclang = llvmSuper.libclang.override {
         inherit (llvmSelf) libllvm;
+        patches = [
+          ./patches/clang/purity.patch
+          ./patches/clang/gnu-install-dirs.patch
+          ./patches/clang/add-nostdlibinc-flag.patch
+          (substituteAll {
+            src = ./clang/llvmgold-path.patch;
+            libllvmLibdir = "${llvmSelf.libllvm.lib}/lib";
+          })
+        ];
       };
       clang-unwrapped = llvmSelf.libclang;
       libstdcxxClang = self.wrapCCWith rec {
