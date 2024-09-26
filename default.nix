@@ -72,4 +72,16 @@ in {
       stdenv
       ;
   };
+  llvmPackages_18 = {
+    inherit
+      (pkgs.llvmPackages_18)
+      compiler-rt-libc
+      compiler-rt
+      libclang
+      clang-unwrapped
+      libstdcxxClang
+      clang
+      stdenv
+      ;
+  };
 }

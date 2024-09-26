@@ -41,18 +41,17 @@ self: super: let
         inherit (llvmSelf) libllvm;
       };
       compiler-rt = llvmSelf.compiler-rt-libc;
-      libclang = llvmSuper.libclang.override {
+      libclang = llvmSuper.libclang.override (super: {
         inherit (llvmSelf) libllvm;
-        patches = [
-          ./patches/clang/purity.patch
-          ./patches/clang/gnu-install-dirs.patch
-          ./patches/clang/add-nostdlibinc-flag.patch
-          (self.substituteAll {
-            src = ./patches/clang/llvmgold-path.patch;
-            libllvmLibdir = "${llvmSelf.libllvm.lib}/lib";
-          })
-        ];
-      };
+        patches =
+          (builtins.filter builtins.isPath (super.patches or []))
+          ++ [
+            (self.substituteAll {
+              src = ./patches/clang/llvmgold-path.patch;
+              libllvmLibdir = "${llvmSelf.libllvm.lib}/lib";
+            })
+          ];
+      });
       clang-unwrapped = llvmSelf.libclang;
       libstdcxxClang = self.wrapCCWith rec {
         cc = llvmSelf.clang-unwrapped;
