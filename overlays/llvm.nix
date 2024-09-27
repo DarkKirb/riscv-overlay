@@ -70,8 +70,9 @@ in {
   llvmPackages_17 = mkLlvm {dynamic = true;} self.llvmPackages_17 super.llvmPackages_17;
   llvm_17 = self.llvmPackages_17.llvm;
   clang_17 = self.llvmPackages_17.clang;
-  clang = self.clang_17;
-  llvm = self.llvm_17;
+  clang = self.clang_18;
+  llvm = self.llvm_18;
+  llvmPackages = self.llvmPackages_18;
   llvmPackages_18 = mkLlvm {} self.llvmPackages_18 super.llvmPackages_18;
   llvm_18 = self.llvmPackages_18.llvm;
 }
