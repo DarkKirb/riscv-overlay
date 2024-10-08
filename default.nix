@@ -38,7 +38,7 @@ in {
     };
     packages = let
       mkHaskellPackages = version: {
-        inherit (pkgs.haskell.packages.${version}) happy;
+        inherit (pkgs.haskell.packages.${version}) happy hscolour;
       };
     in
       (builtins.listToAttrs (map (version: {
