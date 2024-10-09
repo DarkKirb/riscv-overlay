@@ -1,6 +1,6 @@
 self: super: haskellSelf: haskellSuper: {
   # Disable library profiling because it doesn’t work lol
-  mkDerivation = args: super.mkDerivation ({
+  mkDerivation = args: haskellSuper.mkDerivation ({
     enableLibraryProfiling = false;
   } // args);
   # Very expensive testsuite that only runs natively
