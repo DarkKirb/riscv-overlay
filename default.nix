@@ -16,6 +16,7 @@ in {
     llvm_15
     llvm_17
     llvm_18
+    luajit
     mdbook
     nix
     openexr
