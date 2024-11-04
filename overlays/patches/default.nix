@@ -7,7 +7,7 @@ self: super: {
         ./gn/fix-build-for-riscv-arch.patch
       ];
   });
-  luajit = super.luajit.overrideAttrs (super: {
+  luajit_2_1 = super.luajit_2_1.overrideAttrs (super: {
     src = self.fetchFromGitHub {
       owner = "plctlab";
       repo = "LuaJIT";
@@ -21,5 +21,5 @@ self: super: {
       };
   });
   luajitPackages = self.luajit.pkgs;
-  luajit_2_1 = self.luajit;
+  luajit = self.luajit_2_1;
 }
