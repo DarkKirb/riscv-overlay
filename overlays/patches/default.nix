@@ -7,19 +7,9 @@ self: super: {
         ./gn/fix-build-for-riscv-arch.patch
       ];
   });
-  luajit_2_1 = super.luajit_2_1.overrideAttrs (super: {
-    src = self.fetchFromGitHub {
-      owner = "plctlab";
-      repo = "LuaJIT";
-      rev = "1893cf72c264f837596614a537a18e83b8c1b678";
-      sha256 = "sha256-zgTeMpAzIb05Dv9ey7ER075218MkI+ZmT3nYpNCdS+w=";
-    };
-    meta =
-      super.meta
-      // {
-        badPlatforms = ["powerpc64le-linux"];
-      };
-  });
-  luajitPackages = self.luajit.pkgs;
+  luaInterpreters = super.luaInterpreters // (self.callPackage ./lua {});
+
+  inherit (self.luaInterpreters) luajit_2_1;
+  luajitPackages = self.recurseIntoAttrs self.luajit.pkgs;
   luajit = self.luajit_2_1;
 }
