@@ -12,7 +12,7 @@ self: super: {
       owner = "plctlab";
       repo = "LuaJIT";
       rev = "1893cf72c264f837596614a537a18e83b8c1b678";
-      sha256 = "0vchl5pjwyj8jsxibx2rbzk5gcbdzd3gwl62fy3sazp8ilxxihnj";
+      sha256 = "sha256-zgTeMpAzIb05Dv9ey7ER075218MkI+ZmT3nYpNCdS+w=";
     };
     meta =
       super.meta
