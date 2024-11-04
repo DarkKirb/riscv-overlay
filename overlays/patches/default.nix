@@ -20,4 +20,6 @@ self: super: {
         badPlatforms = ["powerpc64le-linux"];
       };
   });
+  luajitPackages = self.luajit.pkgs;
+  luajit_2_1 = self.luajit;
 }
