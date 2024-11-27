@@ -7,4 +7,4 @@ let
     narHash = lockfile.nodes.nixpkgs.locked.narHash;
   };
 in
-  import "${nixpkgs}/lib"
+import "${nixpkgs}/lib"

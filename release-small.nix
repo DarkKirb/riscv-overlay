@@ -1,9 +1,11 @@
-{nixpkgs}: let
+{ nixpkgs }:
+let
   pkgs = import <nixpkgs> {
     system = "x86_64-linux";
   };
 
-  nixpkgs' = with pkgs;
+  nixpkgs' =
+    with pkgs;
     stdenv.mkDerivation {
       name = "nixpkgs-patched";
       src = pkgs.path;
@@ -19,12 +21,12 @@
       '';
     };
 in
-  with pkgs.lib;
-    import "${nixpkgs}/nixos/release-small.nix" {
-      supportedSystems = ["riscv64-linux"];
-      nixpkgs = {
-        outPath = cleanSource nixpkgs';
-        revCount = 56789;
-        shortRev = "gfedcba";
-      };
-    }
+with pkgs.lib;
+import "${nixpkgs}/nixos/release-small.nix" {
+  supportedSystems = [ "riscv64-linux" ];
+  nixpkgs = {
+    outPath = cleanSource nixpkgs';
+    revCount = 56789;
+    shortRev = "gfedcba";
+  };
+}

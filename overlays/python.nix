@@ -1,9 +1,12 @@
-self: super: let
-  overlay = with (import ../lib.nix);
+self: super:
+let
+  overlay =
+    with (import ../lib.nix);
     composeManyExtensions [
       (import ./python/broken-tests.nix self super)
     ];
-in {
+in
+{
   python3 = super.python3.override {
     packageOverrides = overlay;
   };

@@ -1,2 +1,3 @@
-self: super: {
+self: super:
+{
 }

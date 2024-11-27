@@ -3,13 +3,13 @@ self: super: pythonSelf: pythonSuper: {
     doInstallCheck = false;
   };
   psutil = pythonSuper.psutil.overrideAttrs (super: {
-    requiredSystemFeatures = super.requiredSystemFeatures or [] ++ ["native-riscv"];
+    requiredSystemFeatures = super.requiredSystemFeatures or [ ] ++ [ "native-riscv" ];
   });
   cbor2 = pythonSuper.cbor2.overrideAttrs {
     doInstallCheck = false;
   };
   mypy = pythonSuper.mypy.overrideAttrs {
-    env = {};
+    env = { };
     doInstallCheck = false;
   };
 }

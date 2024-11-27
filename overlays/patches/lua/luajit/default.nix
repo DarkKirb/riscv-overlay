@@ -5,9 +5,9 @@
   version,
   src,
   substituteAll,
-  extraMeta ? {},
+  extraMeta ? { },
   self,
-  packageOverrides ? (final: prev: {}),
+  packageOverrides ? (final: prev: { }),
   pkgsBuildBuild,
   pkgsBuildHost,
   pkgsBuildTarget,
@@ -33,10 +33,11 @@
   # binaries that you want to be reproducible.
   deterministicStringIds ? false,
   luaAttr ? "luajit_${lib.versions.major version}_${lib.versions.minor version}",
-} @ inputs:
+}@inputs:
 assert enableJITDebugModule -> enableJIT;
 assert enableGDBJITSupport -> enableJIT;
-assert enableValgrindSupport -> valgrind != null; let
+assert enableValgrindSupport -> valgrind != null;
+let
   luaPackages = self.pkgs;
 
   XCFLAGS =
@@ -57,93 +58,110 @@ assert enableValgrindSupport -> valgrind != null; let
   # stdenv_32bit but that doesn't work due to host platform mismatch:
   # https://github.com/NixOS/nixpkgs/issues/212494
   buildStdenv =
-    if buildPackages.stdenv.hostPlatform.isx86_64 && stdenv.hostPlatform.is32bit
-    then buildPackages.pkgsi686Linux.buildPackages.stdenv
-    else buildPackages.stdenv;
+    if buildPackages.stdenv.hostPlatform.isx86_64 && stdenv.hostPlatform.is32bit then
+      buildPackages.pkgsi686Linux.buildPackages.stdenv
+    else
+      buildPackages.stdenv;
 in
-  stdenv.mkDerivation (finalAttrs: {
-    pname = "luajit";
-    inherit version src;
+stdenv.mkDerivation (finalAttrs: {
+  pname = "luajit";
+  inherit version src;
 
-    luaversion = "5.1";
+  luaversion = "5.1";
 
-    postPatch = ''
-      substituteInPlace Makefile --replace ldconfig :
-      if test -n "''${dontStrip-}"; then
-        # CCDEBUG must be non-empty or everything will be stripped, -g being
-        # passed by nixpkgs CC wrapper is insufficient on its own
-        substituteInPlace src/Makefile --replace-fail "#CCDEBUG= -g" "CCDEBUG= -g"
-      fi
-    '';
+  postPatch = ''
+    substituteInPlace Makefile --replace ldconfig :
+    if test -n "''${dontStrip-}"; then
+      # CCDEBUG must be non-empty or everything will be stripped, -g being
+      # passed by nixpkgs CC wrapper is insufficient on its own
+      substituteInPlace src/Makefile --replace-fail "#CCDEBUG= -g" "CCDEBUG= -g"
+    fi
+  '';
 
-    dontConfigure = true;
+  dontConfigure = true;
 
-    buildInputs = lib.optional enableValgrindSupport valgrind;
+  buildInputs = lib.optional enableValgrindSupport valgrind;
 
-    buildFlags = [
-      "amalg" # Build highly optimized version
-    ];
-    makeFlags =
-      [
-        "PREFIX=$(out)"
-        "DEFAULT_CC=cc"
-        "CROSS=${stdenv.cc.targetPrefix}"
-        "HOST_CC=${buildStdenv.cc}/bin/cc"
-      ]
-      ++ lib.optional enableJITDebugModule "INSTALL_LJLIBD=$(INSTALL_LMOD)"
-      ++ lib.optional stdenv.hostPlatform.isStatic "BUILDMODE=static";
-    enableParallelBuilding = true;
-    env.NIX_CFLAGS_COMPILE = toString XCFLAGS;
+  buildFlags = [
+    "amalg" # Build highly optimized version
+  ];
+  makeFlags =
+    [
+      "PREFIX=$(out)"
+      "DEFAULT_CC=cc"
+      "CROSS=${stdenv.cc.targetPrefix}"
+      "HOST_CC=${buildStdenv.cc}/bin/cc"
+    ]
+    ++ lib.optional enableJITDebugModule "INSTALL_LJLIBD=$(INSTALL_LMOD)"
+    ++ lib.optional stdenv.hostPlatform.isStatic "BUILDMODE=static";
+  enableParallelBuilding = true;
+  env.NIX_CFLAGS_COMPILE = toString XCFLAGS;
 
-    postInstall = ''
-      mkdir -p $out/nix-support
-      cp ${substituteAll {
+  postInstall = ''
+    mkdir -p $out/nix-support
+    cp ${
+      substituteAll {
         src = "${pkgsBuildBuild.path}/pkgs/development/interpreters/lua-5/utils.sh";
         luapathsearchpaths = lib.escapeShellArgs finalAttrs.LuaPathSearchPaths;
         luacpathsearchpaths = lib.escapeShellArgs finalAttrs.LuaCPathSearchPaths;
-      }} $out/nix-support/utils.sh
-      ( cd "$out/include"; ln -s luajit-*/* . )
-      ln -s "$out"/bin/luajit-* "$out"/bin/lua
-      if [[ ! -e "$out"/bin/luajit ]]; then
-        ln -s "$out"/bin/luajit* "$out"/bin/luajit
-      fi
-    '';
-
-    LuaPathSearchPaths = luaPackages.luaLib.luaPathList;
-    LuaCPathSearchPaths = luaPackages.luaLib.luaCPathList;
-
-    setupHook = builtins.toFile "lua-setup-hook" ''
-      source @out@/nix-support/utils.sh
-      addEnvHooks "$hostOffset" luaEnvHook
-    '';
-
-    # copied from python
-    passthru = let
-      # When we override the interpreter we also need to override the spliced versions of the interpreter
-      inputs' = lib.filterAttrs (n: v: ! lib.isDerivation v && n != "passthruFun") inputs;
-      override = attr: let lua = attr.override (inputs' // {self = lua;}); in lua;
-    in
-      passthruFun rec {
-        inherit self packageOverrides luaAttr;
-        inherit (finalAttrs) luaversion;
-        executable = "lua";
-        luaOnBuildForBuild = override pkgsBuildBuild.${luaAttr};
-        luaOnBuildForHost = override pkgsBuildHost.${luaAttr};
-        luaOnBuildForTarget = override pkgsBuildTarget.${luaAttr};
-        luaOnHostForHost = override pkgsHostHost.${luaAttr};
-        luaOnTargetForTarget = lib.optionalAttrs (lib.hasAttr luaAttr pkgsTargetTarget) (override pkgsTargetTarget.${luaAttr});
-      };
-
-    meta = with lib;
-      {
-        description = "High-performance JIT compiler for Lua 5.1";
-        homepage = "https://luajit.org/";
-        license = licenses.mit;
-        platforms = platforms.linux ++ platforms.darwin;
-        badPlatforms = [
-          "powerpc64le-linux" # `#error "No support for PPC64"`
-        ];
-        maintainers = with maintainers; [thoughtpolice smironov vcunat lblasc];
       }
-      // extraMeta;
-  })
+    } $out/nix-support/utils.sh
+    ( cd "$out/include"; ln -s luajit-*/* . )
+    ln -s "$out"/bin/luajit-* "$out"/bin/lua
+    if [[ ! -e "$out"/bin/luajit ]]; then
+      ln -s "$out"/bin/luajit* "$out"/bin/luajit
+    fi
+  '';
+
+  LuaPathSearchPaths = luaPackages.luaLib.luaPathList;
+  LuaCPathSearchPaths = luaPackages.luaLib.luaCPathList;
+
+  setupHook = builtins.toFile "lua-setup-hook" ''
+    source @out@/nix-support/utils.sh
+    addEnvHooks "$hostOffset" luaEnvHook
+  '';
+
+  # copied from python
+  passthru =
+    let
+      # When we override the interpreter we also need to override the spliced versions of the interpreter
+      inputs' = lib.filterAttrs (n: v: !lib.isDerivation v && n != "passthruFun") inputs;
+      override =
+        attr:
+        let
+          lua = attr.override (inputs' // { self = lua; });
+        in
+        lua;
+    in
+    passthruFun rec {
+      inherit self packageOverrides luaAttr;
+      inherit (finalAttrs) luaversion;
+      executable = "lua";
+      luaOnBuildForBuild = override pkgsBuildBuild.${luaAttr};
+      luaOnBuildForHost = override pkgsBuildHost.${luaAttr};
+      luaOnBuildForTarget = override pkgsBuildTarget.${luaAttr};
+      luaOnHostForHost = override pkgsHostHost.${luaAttr};
+      luaOnTargetForTarget = lib.optionalAttrs (lib.hasAttr luaAttr pkgsTargetTarget) (
+        override pkgsTargetTarget.${luaAttr}
+      );
+    };
+
+  meta =
+    with lib;
+    {
+      description = "High-performance JIT compiler for Lua 5.1";
+      homepage = "https://luajit.org/";
+      license = licenses.mit;
+      platforms = platforms.linux ++ platforms.darwin;
+      badPlatforms = [
+        "powerpc64le-linux" # `#error "No support for PPC64"`
+      ];
+      maintainers = with maintainers; [
+        thoughtpolice
+        smironov
+        vcunat
+        lblasc
+      ];
+    }
+    // extraMeta;
+})
