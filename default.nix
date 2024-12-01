@@ -73,18 +73,22 @@ in
   };
   python3Packages = {
     inherit (pkgs.python3Packages)
-      hypothesis
-      psutil
       cbor2
+      dbus-python
+      hypothesis
       mypy
+      numpy
+      psutil
       ;
   };
   python312Packages = {
     inherit (pkgs.python312Packages)
-      hypothesis
-      psutil
       cbor2
+      dbus-python
+      hypothesis
       mypy
+      numpy
+      psutil
       ;
   };
   llvmPackages_17 = {

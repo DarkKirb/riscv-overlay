@@ -12,6 +12,9 @@ self: super: pythonSelf: pythonSuper: {
     env = { };
     doInstallCheck = false;
   };
+  numpy = pythonSuper.numpy.overrideAttrs {
+    doInstallCheck = false;
+  };
   psutil = pythonSuper.psutil.overrideAttrs (super: {
     requiredSystemFeatures = super.requiredSystemFeatures or [ ] ++ [ "native-riscv" ];
   });
