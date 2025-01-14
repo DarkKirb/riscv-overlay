@@ -6,5 +6,4 @@ composeManyExtensions [
   (import ./overlays/misc.nix)
   (import ./overlays/patches)
   (import ./overlays/python.nix)
-  (import ./overlays/require-native-build.nix)
 ]
