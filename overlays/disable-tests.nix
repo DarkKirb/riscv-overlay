@@ -40,4 +40,5 @@ in
   "ripgrep"
   "universal-ctags"
   "wolfssl"
+  "libjxl"
 ])
